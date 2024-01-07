@@ -4,10 +4,6 @@ import 'package:newapp/screens/auth/number_screen.dart';
 import 'package:newapp/utils/colors.dart';
 import 'auth_controller.dart';
 
-
-
-
-
 class LoginScreen extends StatelessWidget {
   final AuthController controller = Get.put(AuthController());
 
@@ -15,7 +11,6 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -31,15 +26,16 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(
                       height: Get.height * 0.2,
                       width: Get.width * 0.80,
-                      child: Image.asset("images/logo.png")),
+                      child: Image.asset("images/logo.jpeg")),
                   SizedBox(
-                    height: Get.height /15,
+                    height: Get.height / 15,
                   ),
                   const Text(
                     "Login To Your Account",
-                    style:  TextStyle(
+                    style: TextStyle(
                         fontSize: 25,
-                        fontWeight: FontWeight.w500, color: appcolor.maincolor),
+                        fontWeight: FontWeight.w500,
+                        color: appcolor.maincolor),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
@@ -57,8 +53,7 @@ class LoginScreen extends StatelessWidget {
                             fontSize: 15,
                             color: Color.fromRGBO(0, 0, 0, 0.3)),
                         prefixIcon:
-                        Icon(Icons.credit_card, color: appcolor.maincolor),
-
+                            Icon(Icons.credit_card, color: appcolor.maincolor),
                       ),
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.done,
@@ -92,37 +87,44 @@ class LoginScreen extends StatelessWidget {
                   // ),
 
                   Padding(
-                   padding: EdgeInsets.only(right: 20),
-                    child:   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-    children: [
-      GestureDetector(
-          onTap: (){
-              Get.to(NumberScreen());
-          },
-          child: Text("Use Phone Number For Login", style: TextStyle(color: Colors.black45),))
-    ],
-  ),
-),
+                    padding: EdgeInsets.only(right: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                            onTap: () {
+                              Get.to(NumberScreen());
+                            },
+                            child: Text(
+                              "Use Phone Number For Login",
+                              style: TextStyle(color: Colors.black45),
+                            ))
+                      ],
+                    ),
+                  ),
 
                   SizedBox(
                     height: Get.height / 7,
                   ),
 
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       controller.loginUser();
                     },
-                    child:   Container(
+                    child: Container(
                       height: 50,
                       width: 202,
-                      decoration: BoxDecoration(color: appcolor.maincolor, borderRadius: BorderRadius.circular(14),),
-                      child: const Center(child: Text("Login",style: TextStyle(color: Colors.white),)),
+                      decoration: BoxDecoration(
+                        color: appcolor.maincolor,
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      child: const Center(
+                          child: Text(
+                        "Login",
+                        style: TextStyle(color: Colors.white),
+                      )),
                     ),
-
                   )
-
-
                 ],
               ),
             ),

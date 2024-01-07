@@ -4,10 +4,6 @@ import 'package:newapp/utils/colors.dart';
 import 'auth_controller.dart';
 import 'login_screen.dart';
 
-
-
-
-
 class NumberScreen extends StatelessWidget {
   final AuthController controller = Get.put(AuthController());
 
@@ -15,7 +11,6 @@ class NumberScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -31,15 +26,16 @@ class NumberScreen extends StatelessWidget {
                   SizedBox(
                       height: Get.height * 0.2,
                       width: Get.width * 0.80,
-                      child: Image.asset("images/logo.png")),
+                      child: Image.asset("images/logo.jpeg")),
                   SizedBox(
-                    height: Get.height /15,
+                    height: Get.height / 15,
                   ),
                   const Text(
                     "Login To Your Account",
-                    style:  TextStyle(
+                    style: TextStyle(
                         fontSize: 25,
-                        fontWeight: FontWeight.w400, color: appcolor.maincolor),
+                        fontWeight: FontWeight.w400,
+                        color: appcolor.maincolor),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
@@ -57,8 +53,7 @@ class NumberScreen extends StatelessWidget {
                             fontSize: 15,
                             color: Color.fromRGBO(0, 0, 0, 0.3)),
                         prefixIcon:
-                        Icon(Icons.phone, color: appcolor.maincolor),
-
+                            Icon(Icons.phone, color: appcolor.maincolor),
                       ),
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.done,
@@ -67,39 +62,43 @@ class NumberScreen extends StatelessWidget {
                   const SizedBox(
                     height: 38,
                   ),
-
-                   Padding(
+                  Padding(
                     padding: EdgeInsets.only(right: 20),
-                    child:   Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         GestureDetector(
-                            onTap: (){
+                            onTap: () {
                               Get.to(LoginScreen());
                             },
-                            child: Text("Use Email For Login", style: TextStyle(color: Colors.black45),))
+                            child: Text(
+                              "Use Email For Login",
+                              style: TextStyle(color: Colors.black45),
+                            ))
                       ],
                     ),
                   ),
-
                   SizedBox(
                     height: Get.height / 7,
                   ),
-
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       controller.loginUser();
                     },
-                    child:   Container(
+                    child: Container(
                       height: 50,
                       width: 202,
-                      decoration: BoxDecoration(color: appcolor.maincolor, borderRadius: BorderRadius.circular(14),),
-                      child: const Center(child: Text("Login",style: TextStyle(color: Colors.white),)),
+                      decoration: BoxDecoration(
+                        color: appcolor.maincolor,
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      child: const Center(
+                          child: Text(
+                        "Login",
+                        style: TextStyle(color: Colors.white),
+                      )),
                     ),
-
                   )
-
-
                 ],
               ),
             ),
