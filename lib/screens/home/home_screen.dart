@@ -10,10 +10,13 @@ class HomeScreen extends StatelessWidget {
 
   final HomeController controller = Get.put(HomeController());
 
+
   @override
   Widget build(BuildContext context) {
     return controller.obx((state) => Scaffold(
+
           appBar: AppBar(
+            backgroundColor: appcolor.maincolor,
             elevation: 0,
             leading: Container(),
             title: Row(
@@ -25,8 +28,8 @@ class HomeScreen extends StatelessWidget {
                   "Home",
                   style: TextStyle(
                       fontSize: 22,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.blueGrey),
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white),
                 ),
                 const SizedBox(
                   width: 8,
@@ -39,7 +42,63 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          body: Column(
+      drawer: Drawer(
+        child: Column(
+          children: [
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: appcolor.maincolor,
+              ),
+              child: Center(
+                child:  SizedBox(
+                    height: Get.height * 0.2,
+                    width: Get.width * 0.80,
+                    child: Image.asset("images/logo.jpeg")),
+              ),
+            ),
+            Expanded(
+              child: ListView(
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.home),
+                    title: const Text('Home'),
+                    onTap: () {
+                      // Handle Home button press
+                      Navigator.pop(context); // Close the drawer
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.info),
+                    title: const Text('About'),
+                    onTap: () {
+
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.mail),
+                    title: const Text('Contact Us'),
+                    onTap: () {
+
+                    },
+                  ),
+                ],
+              ),
+            ),
+            const Divider(), // Add a Divider for visual separation
+            ListTile(
+              leading: const Icon(Icons.exit_to_app),
+              title: const Text('Logout'),
+              onTap: () {
+                // Handle Logout button press
+                // Example: controller.logoutUser();
+              },
+            ),
+          ],
+        ),
+      ),
+
+
+      body: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
@@ -70,7 +129,7 @@ class HomeScreen extends StatelessWidget {
                     child: DropdownButton<String>(
                       //  value: controller.selectShop,
 
-                      hint: controller.selectedValue.toString() == ""
+                      hint: controller.selectedTrades.toString() == ""
                           ? const Padding(
                               padding: EdgeInsets.all(10),
                               child: Text(
@@ -81,20 +140,20 @@ class HomeScreen extends StatelessWidget {
                           : Padding(
                               padding: const EdgeInsets.all(10),
                               child: Text(
-                                controller.selectedValue.toString(),
+                                controller.selectedTrades.toString(),
                                 style: const TextStyle(
                                     fontSize: 16, color: Colors.black),
                               ),
                             ),
                       isExpanded: true,
-                      items: controller.items.map((e) {
+                      items: controller.trades.map((e) {
                         return DropdownMenuItem<String>(
                           value: e,
                           child: Text(e),
                         );
                       }).toList(),
                       onChanged: (v) {
-                        controller.selectedValue = v.toString();
+                        controller.selectedTrades = v.toString();
                         controller.change(null, status: RxStatus.success());
                         controller.refresh();
                       },
@@ -125,7 +184,7 @@ class HomeScreen extends StatelessWidget {
                     child: DropdownButton<String>(
                       //  value: controller.selectShop,
 
-                      hint: controller.selectedValue2.toString() == ""
+                      hint: controller.selectedCenters.toString() == ""
                           ? const Padding(
                               padding: EdgeInsets.all(10),
                               child: Text(
@@ -136,20 +195,20 @@ class HomeScreen extends StatelessWidget {
                           : Padding(
                               padding: const EdgeInsets.all(10),
                               child: Text(
-                                controller.selectedValue2.toString(),
+                                controller.selectedCenters.toString(),
                                 style: const TextStyle(
                                     fontSize: 16, color: Colors.black),
                               ),
                             ),
                       isExpanded: true,
-                      items: controller.items2.map((e) {
+                      items: controller.centers.map((e) {
                         return DropdownMenuItem<String>(
                           value: e,
                           child: Text(e),
                         );
                       }).toList(),
                       onChanged: (v) {
-                        controller.selectedValue2 = v.toString();
+                        controller.selectedCenters = v.toString();
                         controller.change(null, status: RxStatus.success());
                         controller.refresh();
                       },
@@ -162,7 +221,7 @@ class HomeScreen extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  controller.signupUser();
+
                 },
                 child: Center(
                   child: Container(

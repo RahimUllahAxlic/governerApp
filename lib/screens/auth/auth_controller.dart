@@ -8,7 +8,8 @@ import 'package:newapp/screens/home/home_screen.dart';
 
 class AuthController extends GetxController with StateMixin{
 
-  final signin_text = TextEditingController();
+  final cnic_text = TextEditingController();
+  final phone_text = TextEditingController();
   FirebaseAuth auth = FirebaseAuth.instance;
   bool signed= false;
 
@@ -20,14 +21,14 @@ class AuthController extends GetxController with StateMixin{
 
   Future<void> loginUser() async {
 
-      await auth.signInWithEmailAndPassword(
-        email: "rahimullah41561@gmail.com",
-        password: "password").then((value) {
-          signed= true;
-      }).onError((error, stackTrace) {
-
-        debugPrint(error.toString());
-      });
+      // await auth.signInWithEmailAndPassword(
+      //   email: "rahimullah41561@gmail.com",
+      //   password: "password").then((value) {
+      //     print("ok");
+      // }).onError((error, stackTrace) {
+      //
+      //   debugPrint(error.toString());
+      // });
 
 Get.to(()=> HomeScreen(signed));
 

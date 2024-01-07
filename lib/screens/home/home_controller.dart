@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -8,33 +9,80 @@ class HomeController extends GetxController with StateMixin {
   final email = TextEditingController();
   final name = TextEditingController();
   //final password = TextEditingController();
-  final List<String> items = [
-    'Programming',
-    'Graphic Designing',
-    'Digital Marketing',
-  ];
-  String selectedValue = '';
-  String dropdownValue = 'Trade';
-  final List<String> items2 = [
-    'Buitmes',
-    'UOB',
-  ];
-  String selectedValue2 = '';
-  String dropdownValue2 = 'near Station';
+  final List<String> trades = [];
+  String selectedTrades = '';
+  String dropdownTrades = 'Trade';
+  final List<String> centers = [];
+  String selectedCenters = '';
+  String dropdownCenters = 'near Station';
+
+  final List<String> tradesCenters = [];
 
   @override
   Future<void> onInit() async {
     super.onInit();
     change(null, status: RxStatus.success());
+fetchTrades();
+fetchCenters();
+    fetchTradesCenters();
   }
 
-  Future<void> signupUser() async {
-    auth
-        .createUserWithEmailAndPassword(
-            email: email.text.toString(), password: "password")
-        .then((value) {})
-        .onError((error, stackTrace) {
-      print(error);
-    });
+  Future<void> fetchCenters() async {
+    try {
+      CollectionReference<Map<String, dynamic>> centerReference =
+      FirebaseFirestore.instance.collection('centers');
+
+
+      QuerySnapshot<Map<String, dynamic>> centerSnapshot =
+      await centerReference.get();
+
+     List<String> centerData = centerSnapshot.docs
+          .map((doc) => doc['center'] as String)
+          .toList();
+
+     centers.addAll(centerData);
+
+    } catch (error) {
+      print('Error fetching data from Firestore: $error');
+    }
   }
+
+  Future<void> fetchTrades() async {
+    try {
+      CollectionReference<Map<String, dynamic>> tradeReference =
+      FirebaseFirestore.instance.collection('trades');
+
+
+      QuerySnapshot<Map<String, dynamic>> tradeSnapshot =
+      await tradeReference.get();
+
+      List<String> tradesData = tradeSnapshot.docs
+          .map((doc) => doc['name'] as String)
+          .toList();
+
+      trades.addAll(tradesData);
+    } catch (error) {
+      print('Error fetching data from Firestore: $error');
+    }
+  }
+
+  Future<void> fetchTradesCenters() async {
+    try {
+      CollectionReference<Map<String, dynamic>> tradesCentersReference =
+      FirebaseFirestore.instance.collection('trade_centre_selection');
+
+
+      QuerySnapshot<Map<String, dynamic>> tradesCentersSnapshot =
+      await tradesCentersReference.get();
+
+      List<String> tradesCentersData = tradesCentersSnapshot.docs
+          .map((doc) => doc['sample'] as String)
+          .toList();
+
+      tradesCenters.addAll(tradesCentersData);
+    } catch (error) {
+      print('Error fetching data from Firestore: $error');
+    }
+  }
+
 }

@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:976182133311:android:7a18e2722e6c3a47b46e8a",
+        "mobilesdk_app_id": "1:976182133311:android:a2f9cb8569e39cf4b46e8a",
         "android_client_info": {
-          "package_name": "com.example.newapp"
+          "package_name": "pk.gob.governorbalochistan"
         }
       },
       "oauth_client": [],

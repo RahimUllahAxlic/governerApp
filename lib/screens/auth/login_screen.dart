@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:newapp/screens/auth/number_screen.dart';
 import 'package:newapp/utils/colors.dart';
 import 'auth_controller.dart';
 
@@ -28,7 +27,7 @@ class LoginScreen extends StatelessWidget {
                       width: Get.width * 0.80,
                       child: Image.asset("images/logo.jpeg")),
                   SizedBox(
-                    height: Get.height / 15,
+                    height: Get.height / 25,
                   ),
                   const Text(
                     "Login To Your Account",
@@ -39,68 +38,46 @@ class LoginScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
-                    height: Get.height / 12,
+                    height: Get.height / 11,
                   ),
-                  Center(
-                    child: TextFormField(
-                      controller: controller.signin_text,
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 14.0),
+                    child: TextField(
+                      controller: controller.phone_text,
                       decoration: const InputDecoration(
                         border: InputBorder.none,
                         filled: true,
-                        hintText: "CNIC Number",
+                        labelText: "Number",
                         hintStyle: TextStyle(
                             fontWeight: FontWeight.w300,
                             fontSize: 15,
                             color: Color.fromRGBO(0, 0, 0, 0.3)),
                         prefixIcon:
-                            Icon(Icons.credit_card, color: appcolor.maincolor),
+                        Icon(Icons.phone, color: appcolor.maincolor),
                       ),
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.done,
                     ),
                   ),
+
+                  TextFormField(
+                    controller: controller.cnic_text,
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      filled: true,
+                      labelText: "CNIC Number",
+                      hintStyle: TextStyle(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 15,
+                          color: Color.fromRGBO(0, 0, 0, 0.3)),
+                      prefixIcon:
+                          Icon(Icons.credit_card, color: appcolor.maincolor),
+                    ),
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.done,
+                  ),
                   const SizedBox(
                     height: 38,
-                  ),
-                  // Center(
-                  //   child: TextFormField(
-                  //     controller: controller.signin_text,
-                  //     obscureText: true,
-                  //     decoration: const InputDecoration(
-                  //       border: InputBorder.none,
-                  //       filled: true,
-                  //       hintText: "Password",
-                  //       hintStyle: TextStyle(
-                  //           fontWeight: FontWeight.w300,
-                  //           fontSize: 15,
-                  //           color: Color.fromRGBO(0, 0, 0, 0.3)),
-                  //       prefixIcon:
-                  //       Icon(Icons.lock, color: Color.fromRGBO(0, 0, 0, 1)),
-                  //
-                  //     ),
-                  //     keyboardType: TextInputType.emailAddress,
-                  //     textInputAction: TextInputAction.done,
-                  //   ),
-                  // ),
-                  // const SizedBox(
-                  //   height: 18,
-                  // ),
-
-                  Padding(
-                    padding: EdgeInsets.only(right: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        GestureDetector(
-                            onTap: () {
-                              Get.to(NumberScreen());
-                            },
-                            child: Text(
-                              "Use Phone Number For Login",
-                              style: TextStyle(color: Colors.black45),
-                            ))
-                      ],
-                    ),
                   ),
 
                   SizedBox(
