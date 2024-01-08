@@ -1,11 +1,12 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController with StateMixin {
   final signupformKey = GlobalKey<FormState>();
-  FirebaseAuth auth = FirebaseAuth.instance;
   final email = TextEditingController();
   final name = TextEditingController();
   //final password = TextEditingController();
@@ -24,7 +25,7 @@ class HomeController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
 fetchTrades();
 fetchCenters();
-    fetchTradesCenters();
+fetchTradesCenters();
   }
 
   Future<void> fetchCenters() async {
@@ -41,6 +42,7 @@ fetchCenters();
           .toList();
 
      centers.addAll(centerData);
+     update();
 
     } catch (error) {
       print('Error fetching data from Firestore: $error');
@@ -61,6 +63,7 @@ fetchCenters();
           .toList();
 
       trades.addAll(tradesData);
+      update();
     } catch (error) {
       print('Error fetching data from Firestore: $error');
     }
@@ -80,9 +83,12 @@ fetchCenters();
           .toList();
 
       tradesCenters.addAll(tradesCentersData);
+      update();
     } catch (error) {
       print('Error fetching data from Firestore: $error');
     }
   }
+
+
 
 }
