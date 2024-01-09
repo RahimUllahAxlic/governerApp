@@ -16,7 +16,7 @@ class HomeController extends GetxController with StateMixin {
   final List<String> centers = [];
   String selectedCenters = '';
   String dropdownCenters = 'near Station';
-  List _items = [];
+
 
   final List<String> tradesCenters = [];
 
@@ -86,6 +86,19 @@ fetchTradesCenters();
 
       tradesCenters.addAll(tradesCentersData);
       update();
+    } catch (error) {
+      print('Error fetching data from Firestore: $error');
+    }
+  }
+
+  Future<void> addfetchTradesCenters() async {
+    try {
+      await FirebaseFirestore.instance.collection('trade_centre_selection').add({
+        'trade': selectedTrades, // Replace with your actual trade value
+        'center': selectedCenters, // Replace with your actual center value
+      });
+      update();
+
     } catch (error) {
       print('Error fetching data from Firestore: $error');
     }

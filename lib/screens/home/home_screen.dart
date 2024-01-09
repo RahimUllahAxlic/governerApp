@@ -5,8 +5,8 @@ import 'package:newapp/utils/colors.dart';
 import 'home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
-  bool signd;
-  HomeScreen(this.signd, {super.key});
+
+  HomeScreen({super.key});
 
   final HomeController controller = Get.put(HomeController());
 
@@ -221,7 +221,7 @@ class HomeScreen extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-
+                 controller.addfetchTradesCenters();
                 },
                 child: Center(
                   child: Container(
