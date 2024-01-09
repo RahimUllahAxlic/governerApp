@@ -16,6 +16,7 @@ class HomeController extends GetxController with StateMixin {
   final List<String> centers = [];
   String selectedCenters = '';
   String dropdownCenters = 'near Station';
+  List _items = [];
 
   final List<String> tradesCenters = [];
 
@@ -27,6 +28,7 @@ fetchTrades();
 fetchCenters();
 fetchTradesCenters();
   }
+
 
   Future<void> fetchCenters() async {
     try {
