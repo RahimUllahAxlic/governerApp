@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class LoadingDialog extends StatefulWidget {
   String Text;
-  LoadingDialog(this.Text,{Key? key}) : super(key: key);
+  LoadingDialog(this.Text, {Key? key}) : super(key: key);
 
   @override
   LoadingDialogState createState() => LoadingDialogState();
@@ -32,7 +32,6 @@ class LoadingDialogState extends State<LoadingDialog>
       onWillPop: () async {
         return false;
       },
-
       child: Dialog(
         //backgroundColor: appcolor.background,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -53,7 +52,7 @@ class LoadingDialogState extends State<LoadingDialog>
                     ScaleTransition(
                       scale: _animation,
                       child: Image.asset(
-                        'images/logo.jpeg',
+                        'images/t_logo.png',
                         width: 30,
                         height: 30,
                       ),
@@ -61,7 +60,10 @@ class LoadingDialogState extends State<LoadingDialog>
                   ],
                 ),
                 const SizedBox(width: 16),
-                Text('${widget.Text}, please wait...',overflow: TextOverflow.ellipsis,)
+                Text(
+                  '${widget.Text}, please wait...',
+                  overflow: TextOverflow.ellipsis,
+                )
               ],
             ),
           ),

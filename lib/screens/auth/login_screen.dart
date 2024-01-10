@@ -24,7 +24,7 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(
                       height: Get.height * 0.2,
                       width: Get.width * 0.80,
-                      child: Image.asset("images/logo.jpeg")),
+                      child: Image.asset("images/logo.png")),
                   SizedBox(
                     height: Get.height / 25,
                   ),
@@ -43,28 +43,39 @@ class LoginScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 14.0),
                     child: TextField(
                       controller: controller.phone_text,
+                      onChanged: (_) {
+                        // if (_.length == 4) {
+                        //   controller.phone_text.text += "-";
+                        // }
+                      },
                       decoration: const InputDecoration(
                         border: InputBorder.none,
                         filled: true,
-                        labelText: "Number",
+                        labelText: "Mobile Number",
+                        hintText: "03123456789",
                         hintStyle: TextStyle(
                             fontWeight: FontWeight.w300,
                             fontSize: 15,
                             color: Color.fromRGBO(0, 0, 0, 0.3)),
                         prefixIcon:
-                        Icon(Icons.phone, color: appcolor.maincolor),
+                            Icon(Icons.phone, color: appcolor.maincolor),
                       ),
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.done,
                     ),
                   ),
-
                   TextFormField(
                     controller: controller.cnic_text,
+                    onChanged: (_) {
+                      // if (_.length == 5 || _.length == 13) {
+                      //   controller.phone_text.text += "-";
+                      // }
+                    },
                     decoration: const InputDecoration(
                       border: InputBorder.none,
                       filled: true,
                       labelText: "CNIC Number",
+                      hintText: "54412-3456789-0",
                       hintStyle: TextStyle(
                           fontWeight: FontWeight.w300,
                           fontSize: 15,
@@ -78,11 +89,9 @@ class LoginScreen extends StatelessWidget {
                   const SizedBox(
                     height: 38,
                   ),
-
                   SizedBox(
                     height: Get.height / 7,
                   ),
-
                   GestureDetector(
                     onTap: () {
                       controller.loginUser();

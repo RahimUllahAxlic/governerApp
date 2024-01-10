@@ -1,24 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:newapp/utils/colors.dart';
+import 'package:newapp/utils/helper.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
-
   HomeScreen({super.key});
 
   final HomeController controller = Get.put(HomeController());
-
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return controller.obx((state) => Scaffold(
-
+          key: _scaffoldKey,
           appBar: AppBar(
             backgroundColor: appcolor.maincolor,
             elevation: 0,
-            leading: Container(),
+            leading: IconButton(
+                onPressed: () {
+                  if (_scaffoldKey.currentState!.hasDrawer) {
+                    if (!_scaffoldKey.currentState!.isDrawerOpen) {
+                      _scaffoldKey.currentState!.openDrawer();
+                    } else {
+                      _scaffoldKey.currentState!.closeDrawer();
+                    }
+                  }
+                },
+                icon: const Icon(Icons.menu, color: Colors.white)),
             title: Row(
               children: [
                 SizedBox(
@@ -42,63 +53,76 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-      drawer: Drawer(
-        child: Column(
-          children: [
-            DrawerHeader(
-              decoration: const BoxDecoration(
-                color: appcolor.maincolor,
-              ),
-              child: Center(
-                child:  SizedBox(
-                    height: Get.height * 0.2,
-                    width: Get.width * 0.80,
-                    child: Image.asset("images/logo.jpeg")),
-              ),
-            ),
-            Expanded(
-              child: ListView(
-                children: [
-                  ListTile(
-                    leading: const Icon(Icons.home),
-                    title: const Text('Home'),
-                    onTap: () {
-                      // Handle Home button press
-                      Navigator.pop(context); // Close the drawer
-                    },
+          drawer: Drawer(
+            child: Column(
+              children: [
+                DrawerHeader(
+                  decoration: const BoxDecoration(
+                    color: appcolor.maincolor,
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.info),
-                    title: const Text('About'),
-                    onTap: () {
-
-                    },
+                  child: Center(
+                    child: SizedBox(
+                        height: Get.height * 0.2,
+                        width: Get.width * 0.80,
+                        child: Image.asset("images/t_logo.png")),
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.mail),
-                    title: const Text('Contact Us'),
-                    onTap: () {
-
-                    },
+                ),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      ListTile(
+                        leading: const Icon(Icons.home),
+                        title: const Text('Home'),
+                        onTap: () {
+                          if (_scaffoldKey.currentState!.hasDrawer) {
+                            if (!_scaffoldKey.currentState!.isDrawerOpen) {
+                              _scaffoldKey.currentState!.openDrawer();
+                            } else {
+                              _scaffoldKey.currentState!.closeDrawer();
+                            }
+                          }
+                        },
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.info),
+                        title: const Text('About'),
+                        onTap: () async {
+                          final Uri url = Uri.parse(
+                              'https://governorbalochistan.gob.pk/about/');
+                          if (!await launchUrl(url)) {
+                            throw Exception('Could not launch $url');
+                          }
+                        },
+                        trailing: const Icon(Icons.open_in_new),
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.mail),
+                        title: const Text('Contact Us'),
+                        onTap: () async {
+                          final Uri url = Uri.parse(
+                              'https://governorbalochistan.gob.pk/contact/');
+                          if (!await launchUrl(url)) {
+                            throw Exception('Could not launch $url');
+                          }
+                        },
+                        trailing: const Icon(Icons.open_in_new),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                const Divider(), // Add a Divider for visual separation
+                ListTile(
+                  leading: const Icon(Icons.exit_to_app),
+                  title: const Text('Logout'),
+                  onTap: () {
+                    // Handle Logout button press
+                    controller.logout();
+                  },
+                ),
+              ],
             ),
-            const Divider(), // Add a Divider for visual separation
-            ListTile(
-              leading: const Icon(Icons.exit_to_app),
-              title: const Text('Logout'),
-              onTap: () {
-                // Handle Logout button press
-                // Example: controller.logoutUser();
-              },
-            ),
-          ],
-        ),
-      ),
-
-
-      body: Column(
+          ),
+          body: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
@@ -107,7 +131,20 @@ class HomeScreen extends StatelessWidget {
               SizedBox(
                   height: Get.height * 0.2,
                   width: Get.width * 0.80,
-                  child: Image.asset("images/logo.jpeg")),
+                  child: Image.asset("images/logo.png")),
+              Visibility(
+                  visible: controller.isMarkedTradeCenter,
+                  child: SizedBox(
+                    width: Get.width * 0.80,
+                    child: const Center(
+                      child: Text(
+                        "You have already selected your trade and center, do you want to update?",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  )),
               const Padding(
                 padding: EdgeInsets.only(top: 80, left: 16),
                 child: Text("Please select you're Desired Trade"),
@@ -221,7 +258,16 @@ class HomeScreen extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                 controller.addfetchTradesCenters();
+                  if (controller.isMarkedTradeCenter) {
+                    showDialogueForUpdateTradeCenter(context, () {
+                      Navigator.of(context).pop(false);
+                    }, () {
+                      Navigator.of(context).pop(true);
+                      controller.addfetchTradesCenters();
+                    });
+                  } else {
+                    controller.addfetchTradesCenters();
+                  }
                 },
                 child: Center(
                   child: Container(
@@ -231,10 +277,12 @@ class HomeScreen extends StatelessWidget {
                       color: appcolor.maincolor,
                       borderRadius: BorderRadius.circular(14),
                     ),
-                    child: const Center(
+                    child: Center(
                         child: Text(
-                      "Add Data",
-                      style: TextStyle(color: Colors.white),
+                      controller.isMarkedTradeCenter
+                          ? "Submit again?"
+                          : "Submit",
+                      style: const TextStyle(color: Colors.white),
                     )),
                   ),
                 ),
