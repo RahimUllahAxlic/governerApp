@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:newapp/screens/home/home_screen.dart';
 import 'package:newapp/utils/helper.dart';
 
@@ -11,7 +9,6 @@ import '../../utils/loadingDialog.dart';
 class AuthController extends GetxController with StateMixin {
   final cnic_text = TextEditingController();
   final phone_text = TextEditingController();
-  FirebaseAuth auth = FirebaseAuth.instance;
   bool signed = false;
 
   @override
@@ -24,7 +21,11 @@ class AuthController extends GetxController with StateMixin {
     String cnic = cnic_text.text;
     String contactNo = phone_text.text;
     if (cnic.isEmpty || contactNo.isEmpty) {
-      showSnackbar(message: "Please fill the field");
+      showSnackbar(message: "Please fill the fields");
+      return;
+    }
+    if (cnic.length < 13 || contactNo.length < 11) {
+      showSnackbar(message: "Please fill the fields");
       return;
     }
 

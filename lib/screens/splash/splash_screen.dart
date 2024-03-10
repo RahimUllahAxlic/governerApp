@@ -11,21 +11,22 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: const Color.fromRGBO(254, 254, 254, 1),
         body: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(),
-        Center(
-          child: Image.asset(
-            "images/logo.png",
-            scale: 2,
-          ),
-        ),
-        const Text(
-          "Developed by Elysian Systems",
-          style: TextStyle(fontStyle: FontStyle.italic, fontSize: 13),
-        )
-      ],
-    ));
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(),
+            Center(
+              child: Image.asset(
+                "images/gbit_logo.jpg",
+                scale: 4,
+              ),
+            ),
+            const Text(
+              "Developed by Elysian Systems",
+              style: TextStyle(fontStyle: FontStyle.italic, fontSize: 13),
+            )
+          ],
+        ));
   }
 }

@@ -52,7 +52,7 @@ class LoadingDialogState extends State<LoadingDialog>
                     ScaleTransition(
                       scale: _animation,
                       child: Image.asset(
-                        'images/t_logo.png',
+                        'images/gbit_logo.jpg',
                         width: 30,
                         height: 30,
                       ),
